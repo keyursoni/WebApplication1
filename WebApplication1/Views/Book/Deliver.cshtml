@@ -1,0 +1,95 @@
+﻿@model WebApplication1.Models.Book
+
+@{
+    ViewBag.Title = "Deliver";
+}
+
+<h2>Deliver</h2>
+
+<div class="row">
+    <div class="col-md-2">
+        <b>Book Name</b>
+    </div>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Bookname)
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <b>Author Name</b>
+    </div>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Authorname)
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <b>Book Price</b>
+    </div>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Bookprice)
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <b>Category</b>
+    </div>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => model.Category)
+    </div>
+
+    
+</div>
+
+<br />
+<h2>Please select Copy:</h2>
+<input type="radio" id="html" name="fav_language" value="HardCopy" onclick="ShowAndHideDiv('divId', 'hide')" >
+<label for="html">Hard Copy</label><br>
+<input type="radio" id="css" name="fav_language" value="Softcopy" onclick="ShowAndHideDiv('divId', 'show')" checked>
+<label for="css">Soft Copy</label><br>
+
+<div id="divId" class="display">
+    <div class="col-md-4" style="width: auto;">
+        <div class="form-group">
+            <div id="txtBox">
+                @Html.Label("Email:")
+                <input type="text" name="email" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <input type="submit" value="Confirm Delivery" class="btn btn-info" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+
+<script type="text/javascript">
+       function ShowAndHideDiv(obj, s) {
+              var element = document.getElementById(obj);
+              if (element.className == "display") {
+                     if (s == "hide") {
+                            element.className = "hide";
+                     }
+                     else {
+                            element.className = "display";
+                     }
+              }
+              else {
+                            if (s == "show") {
+                                   element.className = "display";
+                            }
+                            else {
+                                   element.className = "hide";
+                            }
+                     }
+              }
+</script>

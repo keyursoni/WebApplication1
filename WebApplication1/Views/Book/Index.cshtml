@@ -1,0 +1,99 @@
+﻿@model IEnumerable<WebApplication1.Models.Book>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3 class="text-center text-uppercase">List of Books</h3>
+
+<div>
+
+    @using (Html.BeginForm("Search", "Book", FormMethod.Get, new { @class = "Search-form" }))
+    {<div class="col-md-4" style="width: auto;">
+        <div class="form-group">
+            <div id="txtBox"     >
+                @Html.Label("Search Book:")
+                <input type="text" name="seachstring" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group" style="text-align:left">
+            <div id="radioList">
+                @Html.RadioButton("SearchType", "0", true)
+                @Html.Label("Book Name")
+                @Html.RadioButton("SearchType", "1")
+                @Html.Label("Author Name")
+                @Html.RadioButton("SearchType", "2")
+                @Html.Label("Price")
+                @Html.RadioButton("SearchType", "3")
+                @Html.Label("Category")
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <div id="btnSearch">
+                <input type="submit" value="Search" id="btnSubmit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    }
+</div>
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-primary" })
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Book Price</th>
+            <th>Category</th>
+            <th>Action(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+
+            var discprice = book.Bookprice * 10 / 100;
+
+            if (@book.Category == "Software")
+            {
+                discprice = book.Bookprice - (book.Bookprice * 25 / 100);
+            }
+            else if (@book.Category == "History")
+            {
+                discprice = book.Bookprice - (book.Bookprice * 30 / 100);
+            }
+            else
+            {
+                discprice = book.Bookprice;
+            }
+
+
+            <tr>
+                <td>@book.Bookname</td>
+                <td>@book.Authorname</td>
+                <td>
+                    <b>Actual Price :</b> @book.Bookprice
+                    <b>
+                        Disc price :
+                    </b>
+
+                    @discprice
+                </td>
+                <td>@book.Category</td>
+
+                <td>
+                   
+                    @Html.ActionLink("Delete", "Delete", new { id = book.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Deliver", "Deliver", new { id = book.Id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

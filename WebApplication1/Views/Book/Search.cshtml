@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebApplication1.Models.Book>
+
+@{
+    ViewBag.Title = "Search List";
+}
+
+<link href="../Content/StyleSheet.css" rel="stylesheet" />
+<h2>Search Result for Book</h2>
+
+<p>
+  
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Book Price</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Bookname</td>
+                <td>@book.Authorname</td>
+                <td>@book.Bookprice</td>
+                <td>@book.Category</td>
+
+                
+            </tr>
+        }
+    </tbody>
+</table> 
